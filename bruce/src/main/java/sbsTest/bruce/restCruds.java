@@ -22,8 +22,20 @@ import com.mongodb.MongoClient;
 
 import sbsTest.bruce.dataObjects.Employee;
 
+/**
+ * The REST implementation of <code>CRUDS</code>
+ * 
+ * @author Bruce Brown
+ *
+ */
 public class restCruds implements CRUDS {
 
+	/**
+	 * Returns all of the <code>Employee</code> objects in the database
+	 * 
+	 * @return A <code>Response</code> with a <code>List</code> of
+	 *         <code>Employee</code> objects.
+	 */
 	@Path("/")
 	@GET
 	public Response retrieveEmployeeXML() {
@@ -51,6 +63,14 @@ public class restCruds implements CRUDS {
 
 	}
 
+	/**
+	 * Returns the employee with the desired ID.
+	 * 
+	 * @param id
+	 *            the ID of the desired employee.
+	 * @return A <code>Response</code> with the desired <code>Employee</code>
+	 *         objects.
+	 */
 	@Path("/{id}")
 	@GET
 	public Response retrieveEmployeeXMLById(@PathParam("id") Integer id) {
@@ -71,6 +91,13 @@ public class restCruds implements CRUDS {
 		}
 	}
 
+	/**
+	 * Create an <code>Employee</code>.
+	 * 
+	 * @param emp
+	 *            the new <code>Employee</code>
+	 * @return A <code>Response</code> with a <code>Status</code>.
+	 */
 	@Path("/")
 	@POST
 	public Response createEmployee(Employee emp) {
@@ -92,6 +119,13 @@ public class restCruds implements CRUDS {
 		return Response.ok("<status>success</status>").build();
 	}
 
+	/**
+	 * Removes an <code>Employee</code> from the database.
+	 * 
+	 * @param id
+	 *            the ID of the <code>Employee</code> to be deleted.
+	 * @return A <code>Response</code> with a <code>Status</code>.
+	 */
 	@Path("/{id}")
 	@DELETE
 	public Response deleteEmployee(@PathParam("id") Integer id) {
@@ -113,6 +147,13 @@ public class restCruds implements CRUDS {
 		}
 	}
 
+	/**
+	 * Updates the desired employee
+	 * 
+	 * @param emp
+	 *            the <code>Employee</code> with the updated fields.
+	 * @return A <code>Response</code> with a <code>Status</code>.
+	 */
 	@Path("/")
 	@POST
 	public Response updateEmployee(Employee emp) {
@@ -135,6 +176,15 @@ public class restCruds implements CRUDS {
 		return Response.ok("<status>success</status>").build();
 	}
 
+	/**
+	 * Search the database for all the <code>Employee</code> objects with the
+	 * desired last name.
+	 * 
+	 * @param lastName
+	 *            the last name to search for.
+	 * @return A <code>Response</code> with a <code>List</code> of
+	 *         <code>Employee</code> objects.
+	 */
 	@Path("/")
 	@POST
 	public Response searchEmploy(String lastName) {
@@ -163,6 +213,13 @@ public class restCruds implements CRUDS {
 		}
 	}
 
+	/**
+	 * Converts an <code>Employee</code> object into a <code>DBObject</code>.
+	 * 
+	 * @param emp
+	 *            the <code>Employee</code> object to convert.
+	 * @return the <code>DBObject</code> with the data in it.
+	 */
 	private static DBObject createDBOject(Employee emp) {
 		BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
 		docBuilder.append("_id", emp.getId());
@@ -182,23 +239,30 @@ public class restCruds implements CRUDS {
 		return docBuilder.get();
 	}
 
+	/**
+	 * Converts a <code>DBObject</code> into an <code>Employee</code> object.
+	 * 
+	 * @param dbo
+	 *            the <code>DBObject</code> to convert.
+	 * @return the <code>Employee</code> with the data in it.
+	 */
 	private static Employee toEmployee(DBObject dbo) {
 		Employee results = new Employee();
 		results.setId((Integer) dbo.get("_id"));
-		results.setFirstName((String)dbo.get("firstName"));
-		results.setLastName((String)dbo.get("lastName"));
-		results.setMiddleInitial((String)dbo.get("middleInitial"));
-		results.setEmailAddress((String)dbo.get("emailAddress"));
-		results.setPhoneNumber((String)dbo.get("phoneNumber"));
-		results.setPositionCategory((String)dbo.get("positionCategory"));
-		results.setDateHired((Date)dbo.get("dateHired"));
-		results.setAddress1((String)dbo.get("address1"));
-		results.setAddress2((String)dbo.get("address2"));
-		results.setCity((String)dbo.get("city"));
-		results.setState((String)dbo.get("state"));
-		results.setZipCode((String)dbo.get("zipCode"));
-		results.setActiveFlag((Boolean)dbo.get("activeFlag"));
-		
+		results.setFirstName((String) dbo.get("firstName"));
+		results.setLastName((String) dbo.get("lastName"));
+		results.setMiddleInitial((String) dbo.get("middleInitial"));
+		results.setEmailAddress((String) dbo.get("emailAddress"));
+		results.setPhoneNumber((String) dbo.get("phoneNumber"));
+		results.setPositionCategory((String) dbo.get("positionCategory"));
+		results.setDateHired((Date) dbo.get("dateHired"));
+		results.setAddress1((String) dbo.get("address1"));
+		results.setAddress2((String) dbo.get("address2"));
+		results.setCity((String) dbo.get("city"));
+		results.setState((String) dbo.get("state"));
+		results.setZipCode((String) dbo.get("zipCode"));
+		results.setActiveFlag((Boolean) dbo.get("activeFlag"));
+
 		return results;
 	}
 }

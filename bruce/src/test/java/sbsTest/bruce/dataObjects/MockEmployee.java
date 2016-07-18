@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A mock object to test <code>Employee</code>.
+ * @author Bruce Brown
+ *
+ */
 public class MockEmployee {
 	private static Map<Integer, Employee> EMP_MAP = new HashMap<Integer, Employee>();
 	static {

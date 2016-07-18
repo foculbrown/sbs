@@ -18,6 +18,12 @@ import junit.framework.TestCase;
 import sbsTest.bruce.dataObjects.Employee;
 import sbsTest.bruce.dataObjects.MockEmployee;
 
+/**
+ * Mock tests for <code>CRUDS</code>.
+ * @author Bruce Brown
+ *
+ */
+
 @Path("/users")
 @Produces(MediaType.APPLICATION_XML)
 public class TestWithMock extends TestCase implements CRUDS {
